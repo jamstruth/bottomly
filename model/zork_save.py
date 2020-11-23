@@ -4,20 +4,21 @@ from enum import Enum
 from config import Config
 
 
-class Zork_Game(Enum):
-    Zork_One="zork1"
-    Zork_Two="zork2"
-    Zork_Three="zork3"
+class ZorkGame(Enum):
+    ZORK_ONE ="zork1"
+    ZORK_TWO ="zork2"
+    ZORK_THREE="zork3"
 
-class Zork_Save(MongoModel):
+class ZorkSave(MongoModel):
 
     slack_channel = fields.CharField(primary_key=True)
     game_type = fields.CharField()
     session_id = fields.CharField()
+    session_id = fields.CharField()
 
     @staticmethod
     def get_save_by_channel(channel_id):
-        saves = list(Zork_Save.objects.raw({'_id': channel_id}))
+        saves = list(ZorkSave.objects.raw({'_id': channel_id}))
         if (len(saves) == 0):
             return None
         else:

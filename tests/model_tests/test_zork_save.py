@@ -1,7 +1,8 @@
 import unittest, random, string
-from model.zork_save import Zork_Game, Zork_Save
+from model.zork_save import ZorkGame, ZorkSave
 from config import Config
 from unittest.mock import patch
+
 
 class TestZorkSave(unittest.TestCase):
 
@@ -10,15 +11,15 @@ class TestZorkSave(unittest.TestCase):
         Config().connect_to_db()
         letters = string.ascii_letters
         slack_channel = ''.join(random.choice(letters) for i in range(32))
-        game_type = random.choice(list(Zork_Game))
+        game_type = random.choice(list(ZorkGame))
         session_id = ''.join(random.choice(letters) for i in range(32))
-        zs = Zork_Save(slack_channel, game_type, session_id)
+        zs = ZorkSave(slack_channel, game_type, session_id)
 
         # Act
         zs.save()
 
         # Assert
-        retrieved_saves = Zork_Save.objects.raw({'_id': slack_channel})
+        retrieved_saves = ZorkSave.objects.raw({'_id': slack_channel})
         self.assertEqual(1, retrieved_saves.count())
         self.assertEqual(zs, retrieved_saves[0])
 
