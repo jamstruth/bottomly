@@ -1,5 +1,6 @@
 from pymodm import MongoModel, fields
 from pymongo import WriteConcern
+from enum import Enum
 from config import Config
 
 
@@ -10,8 +11,8 @@ class Zork_Game(Enum):
 
 class Zork_Save(MongoModel):
 
-    slackChannel = fields.CharField(primary_key=True)
-    gameType = fields.CharField()
+    slack_channel = fields.CharField(primary_key=True)
+    game_type = fields.CharField()
     session_id = fields.CharField()
 
     @staticmethod
